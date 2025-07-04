@@ -1,12 +1,29 @@
 "use client";
 
+import { useState } from "react";
+import { addTodo } from "../store/todoSlice";
+
+import { useDispatch } from "react-redux";
+
 export function AddTodo() {
+  const dispatch = useDispatch();
+  const [todo, setTodo] = useState("");
+
   return (
-    <form className="flex gap-3 mb-6">
+    <form
+      className="flex gap-3 mb-6"
+      onSubmit={(e) => {
+        e.preventDefault();
+        dispatch(addTodo(todo));
+      }}
+    >
       <input
         type="text"
         placeholder="Thêm công việc mới..."
         className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        onChange={(e) => {
+          setTodo(e.target.value);
+        }}
       />
       <button
         type="submit"

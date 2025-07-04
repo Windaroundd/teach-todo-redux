@@ -1,4 +1,8 @@
-export function TodoItem({ text, completed, date }) {
+import { useDispatch } from "react-redux";
+import { handleComplete } from "../store/todoSlice";
+
+export function TodoItem({ text, completed, date, id }) {
+  const dispatch = useDispatch();
   return (
     <div
       className={`flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow ${
@@ -11,6 +15,9 @@ export function TodoItem({ text, completed, date }) {
           type="checkbox"
           checked={completed}
           className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+          onChange={() => {
+            dispatch(handleComplete(id));
+          }}
         />
       </div>
 
